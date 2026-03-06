@@ -32,7 +32,7 @@ class CastDb {
        idCast INTEGER PRIMARY KEY AUTOINCREMENT,
        nameCast VARCHAR(50),
        birthCast CHAR(10),
-       gender char(1),
+       gender char(1)
      )
     ''';
     db.execute(query);

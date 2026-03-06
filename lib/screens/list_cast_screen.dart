@@ -101,7 +101,7 @@ class _ListCastScreenState extends State<ListCastScreen> {
               ElevatedButton(onPressed: (){
                 var data={
                   "nameCast": conName.text,
-                  "birtCast": conBirth.text,
+                  "birthCast": conBirth.text,
                   "gender": conGender.text
                 };
                 castDb!.INSERT(data).then(
