@@ -41,7 +41,12 @@ class _ListCastScreenState extends State<ListCastScreen> {
           return FutureBuilder(future: castDb!.SELECT(),
            builder: (context, snapshot) {
             if(snapshot.hasData){
-              return Text('Si hubo datos');
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index){
+                  return Text(snapshot.data![index].nameCast!);
+                }
+              );
             }else{
               if(snapshot.hasError){
                 return Text(snapshot.error.toString());
