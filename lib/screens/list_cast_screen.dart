@@ -60,7 +60,6 @@ class _ListCastScreenState extends State<ListCastScreen> {
       title: Text('Agregar actor'),
       content: Container(
         child: Container(
-          height: 200,
           width: 200,
           child: ListView(
             shrinkWrap: true,
