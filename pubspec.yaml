@@ -70,6 +70,8 @@ flutter:
   - assets/loginanimation.json
   - assets/loading.gif
   - assets/DollarCoinsChest.json
+  - assets/delete.png
+  - assets/edit.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

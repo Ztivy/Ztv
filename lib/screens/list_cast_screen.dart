@@ -44,7 +44,52 @@ class _ListCastScreenState extends State<ListCastScreen> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index){
-                  return Text(snapshot.data![index].nameCast!);
+                  return Container(
+                    margin: EdgeInsets.all(5),
+                    height: MediaQuery.of(context).size.height * .1,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(child: Text(snapshot.data![index].nameCast!)),
+                        InkWell(
+                          onTap: (){
+                            conName.text = snapshot.data![index].nameCast!;
+                            conBirth.text = snapshot.data![index].birthCast!;
+                            conGender.text=snapshot.data![index].gender!;
+                            ShowAlert(snapshot.data![index].idCast!);
+                            },
+                          child: Image.asset("assets/edit.png",height: 30,)),
+
+                        GestureDetector(
+                          onTap: (){
+                            var alert = AlertDialog(
+                              title: Text('Validar accion'),
+                              content: Text('Deseas elimianr el registro?'),
+                              actions: [
+                                TextButton(onPressed: (){
+                                  castDb!.DELETE(snapshot.data![index].idCast!).then((value){
+                                    if(value>0){
+                                      Navigator.pop(context);
+                                      ValueListener.refreshList.value=!ValueListener.refreshList.value;
+                                    }
+                                  });
+                                  ValueListener.refreshList.value=!ValueListener.refreshList.value;
+                                }, child: Text('Si')),
+                                TextButton(onPressed: (){
+                                  Navigator.pop(context);
+                                }, child: Text('No'))
+                              ],
+                            );
+                            showDialog(context: context, builder: (context)=>alert,);
+                          },
+                          child : Image.asset("assets/delete.png",height: 30,)
+                        ),
+                      ],
+                    ),
+                  );
                 }
               );
             }else{
@@ -60,7 +105,7 @@ class _ListCastScreenState extends State<ListCastScreen> {
     );
   }
 
-  void ShowAlert(){
+  void ShowAlert([int? idCast]){
     var alertDialog=AlertDialog(
       title: Text('Agregar actor'),
       content: Container(
@@ -108,8 +153,9 @@ class _ListCastScreenState extends State<ListCastScreen> {
                   "birthCast": conBirth.text,
                   "gender": conGender.text
                 };
-                castDb!.INSERT(data).then(
-                  (value){
+                if(idCast == null){
+                  castDb!.INSERT(data).then(
+                    (value){
                     if(value > 0){
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Refistro guardado')));
                       ValueListener.refreshList.value= !ValueListener.refreshList.value;
@@ -119,6 +165,17 @@ class _ListCastScreenState extends State<ListCastScreen> {
                     Navigator.pop(context);
                   }
                 );
+                }else{
+                  data["idCast"]=idCast.toString();
+                  castDb!.UPDATE(data).then((value){
+                    if(value > 0){
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Refistro actualizado')));
+                      ValueListener.refreshList.value= !ValueListener.refreshList.value;
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Ocurrio un error')));
+                    }
+                  });
+                }
               }, 
               child: Text('Guardar') 
               )
