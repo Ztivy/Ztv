@@ -26,6 +26,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             case 0:
               Navigator.pushNamed(context, "/cast");
               break;
+            case 1:
+              Navigator.pushNamed(context, "/profesores");
             case 3:
               ValueListener.isDarkMode.value = !ValueListener.isDarkMode.value;
               break;
@@ -40,8 +42,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
             /// Likes
             SalomonBottomBarItem(
-              icon: Icon(Icons.favorite_border),
-              title: Text("Likes"),
+              icon: Icon(Icons.accessibility),
+              title: Text("Profesores"),
               selectedColor: Colors.pink,
             ),
 

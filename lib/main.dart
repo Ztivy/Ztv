@@ -5,6 +5,8 @@ import 'package:ztv/screens/dashboard_screen.dart';
 import 'package:ztv/screens/list_cast_screen.dart';
 import 'package:ztv/screens/login_screen.dart';
 import 'package:ztv/listeners/value_listener.dart';
+import 'package:ztv/screens/profesores_screen.dart';
+import 'package:ztv/screens/register_screen.dart';
 import 'package:ztv/utils/theme_app.dart';
 
 void main() async{
@@ -28,7 +30,9 @@ class MyApp extends StatelessWidget {
           home: LoginScreen(),
           routes: {
             "/dash" : (context) => DashboardScreen() ,
-            "/cast": (context) => ListCastScreen()
+            "/cast": (context) => ListCastScreen(),
+            "/profesores":(context)=>ProfesoresScreen(),
+            "/registrer":(context)=>RegisterScreen()
           },
           theme: value ? ThemeApp.WarmTheme() : ThemeData.light(),
         );
